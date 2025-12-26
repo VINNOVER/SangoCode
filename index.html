@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SangoCode | Hub Tech RCA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(30, 58, 138, 0.7), rgba(0, 0, 0, 0.8)), 
+                        url('https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1470');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
+
+    <nav class="bg-[#1e3a8a] text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold flex items-center gap-2 cursor-pointer" onclick="showSection('home')">
+                <span class="bg-yellow-400 text-blue-900 px-2 rounded">Sango</span>Code
+            </div>
+            
+            <div class="hidden md:flex gap-8 items-center font-medium">
+                <a href="#" onclick="showSection('articles')" class="hover:text-yellow-400 transition">Articles</a>
+                <a href="#" onclick="showSection('courses')" class="hover:text-yellow-400 transition">Cours</a>
+                <span class="text-gray-400 cursor-not-allowed">Emplois</span>
+                <button onclick="showSection('auth')" class="bg-white text-[#1e3a8a] px-6 py-2 rounded-full font-bold hover:bg-yellow-400 hover:text-blue-900 transition">
+                    Connexion
+                </button>
+            </div>
+
+            <button class="md:hidden text-white">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+    </nav>
+
+    <section id="home" class="section-content">
+        <header class="hero-bg h-[85vh] flex items-center justify-center text-center px-4">
+            <div class="max-w-4xl">
+                <h1 class="text-4xl md:text-7xl font-extrabold text-white mb-6 leading-tight">
+                    Le Hub des Développeurs <span class="text-yellow-400 italic">Centrafricains</span>
+                </h1>
+                <p class="text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+                    Partagez votre expertise, accédez à des formations locales et propulsez votre carrière tech en RCA.
+                </p>
+                <button onclick="showSection('auth')" class="bg-green-600 hover:bg-green-700 text-white px-10 py-4 rounded-xl text-lg font-bold shadow-2xl transition transform hover:scale-105">
+                    Rejoindre la communauté
+                </button>
+            </div>
+        </header>
+
+        <div class="container mx-auto py-20 px-6">
+            <div class="flex justify-between items-end mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800">Articles Récents</h2>
+                    <p class="text-gray-500">Le savoir partagé par la communauté.</p>
+                </div>
+                <button onclick="showSection('articles')" class="text-blue-700 font-bold hover:underline">Voir tout →</button>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8" id="articles-grid">
+                </div>
+        </div>
+    </section>
+
+    <section id="articles" class="section-content hidden py-16 px-6">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold mb-8">Espace Articles</h2>
+            <div class="flex gap-4 mb-10 overflow-x-auto pb-2">
+                <button class="bg-[#1e3a8a] text-white px-6 py-2 rounded-full shadow-md">Tous</button>
+                <button class="bg-white border px-6 py-2 rounded-full hover:bg-gray-100 transition">Web</button>
+                <button class="bg-white border px-6 py-2 rounded-full hover:bg-gray-100 transition">Mobile</button>
+                <button class="bg-white border px-6 py-2 rounded-full hover:bg-gray-100 transition">Data</button>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8" id="full-articles-grid"></div>
+        </div>
+    </section>
+
+    <section id="courses" class="section-content hidden py-16 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="text-4xl font-bold mb-10">Mes Modules de Formation</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">Maîtriser JavaScript (Base RCA)</h3>
+                        <span class="text-blue-700 font-bold">45%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 h-3 rounded-full mb-6">
+                        <div class="bg-green-500 h-3 rounded-full" style="width: 45%"></div>
+                    </div>
+                    <button class="flex items-center gap-2 text-[#1e3a8a] font-bold hover:gap-4 transition-all">
+                        Continuer l'apprentissage <i data-lucide="arrow-right" size="18"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="auth" class="section-content hidden min-h-[90vh] flex items-center justify-center p-6 bg-gray-200">
+        <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+            <div class="md:w-1/2 bg-[#1e3a8a] p-12 text-white flex flex-col justify-center">
+                <h2 class="text-4xl font-bold mb-6">Bienvenue, Cher Développeur.</h2>
+                <p class="text-blue-100 mb-8 font-light italic">"Construisons ensemble l'écosystème tech de Bangui et d'ailleurs."</p>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-yellow-400"></i> Certifications gratuites</div>
+                    <div class="flex items-center gap-3"><i data-lucide="check-circle" class="text-yellow-400"></i> Networking local</div>
+                </div>
+            </div>
+            <div class="md:w-1/2 p-12">
+                <h3 class="text-2xl font-bold mb-6">Créer mon compte</h3>
+                <form class="space-y-4" onsubmit="event.preventDefault(); showSection('dashboard')">
+                    <input type="text" placeholder="Nom complet" class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <input type="email" placeholder="Email" class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <input type="password" placeholder="Mot de passe" class="w-full p-4 border rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition">
+                    <button class="w-full bg-[#1e3a8a] text-white p-4 rounded-xl font-bold hover:bg-blue-800 shadow-lg transition">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="section-content hidden min-h-screen flex flex-col md:flex-row bg-gray-100">
+    
+    <aside class="w-full md:w-72 bg-gray-900 text-white p-6 shadow-2xl">
+        <div class="flex items-center gap-3 mb-10 pb-4 border-b border-gray-800">
+            <div class="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center text-blue-900 font-bold text-xl">JD</div>
+            <div>
+                <p class="font-bold text-sm">Jean Développeur</p>
+                <p class="text-xs text-green-400 flex items-center gap-1"><span class="w-2 h-2 bg-green-400 rounded-full"></span> En ligne</p>
+            </div>
+        </div>
+
+        <nav class="space-y-2">
+            <button onclick="switchTab('tab-cours')" class="tab-btn w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all hover:bg-blue-800 bg-blue-700" id="btn-cours">
+                <i data-lucide="book-open"></i> Mes Cours
+            </button>
+            <button onclick="switchTab('tab-articles')" class="tab-btn w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" id="btn-articles">
+                <i data-lucide="file-text"></i> Mes Articles
+            </button>
+            <button onclick="switchTab('tab-settings')" class="tab-btn w-full flex items-center gap-4 px-4 py-3 rounded-xl transition-all hover:bg-gray-800 text-gray-400" id="btn-settings">
+                <i data-lucide="settings"></i> Paramètres
+            </button>
+            <hr class="border-gray-800 my-4">
+            <button onclick="showSection('home')" class="w-full flex items-center gap-4 px-4 py-3 rounded-xl text-red-400 hover:bg-red-900/20 transition-all">
+                <i data-lucide="log-out"></i> Déconnexion
+            </button>
+        </nav>
+    </aside>
+
+    <main class="flex-1 p-6 md:p-12 overflow-y-auto">
+        
+        <div id="tab-cours" class="dashboard-tab">
+            <h2 class="text-3xl font-bold mb-6">Mes Cours en cours</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-lg mb-2">Algorithmique en Sango</h3>
+                    <p class="text-gray-500 text-sm mb-4">Progression : 65%</p>
+                    <div class="w-full bg-gray-100 h-2 rounded-full mb-4">
+                        <div class="bg-blue-600 h-2 rounded-full" style="width: 65%"></div>
+                    </div>
+                    <button class="text-blue-600 font-bold text-sm hover:underline italic">Continuer l'apprentissage</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="tab-articles" class="dashboard-tab hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-3xl font-bold">Mes Articles</h2>
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700">
+                    <i data-lucide="plus"></i> Écrire un article
+                </button>
+            </div>
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-gray-50 border-b border-gray-200 text-gray-600 text-sm uppercase">
+                        <tr>
+                            <th class="px-6 py-4 font-bold">Titre</th>
+                            <th class="px-6 py-4 font-bold">Status</th>
+                            <th class="px-6 py-4 font-bold">Vues</th>
+                            <th class="px-6 py-4 font-bold">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-gray-700">
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4">Installer VS Code à Bangui</td>
+                            <td class="px-6 py-4"><span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-bold">Publié</span></td>
+                            <td class="px-6 py-4">128</td>
+                            <td class="px-6 py-4 text-blue-600 cursor-pointer hover:underline italic">Modifier</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-settings" class="dashboard-tab hidden">
+            <h2 class="text-3xl font-bold mb-6">Paramètres du profil</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200 max-w-2xl">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Nom complet</label>
+                            <input type="text" value="Jean Développeur" class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Email</label>
+                            <input type="email" value="jean@sangocode.cf" class="w-full p-3 border rounded-xl bg-gray-50" readonly>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Ma stack technique</label>
+                        <input type="text" placeholder="React, Node.js, Python..." class="w-full p-3 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <button class="bg-green-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-700 transition shadow-lg">Enregistrer les modifications</button>
+                </form>
+            </div>
+        </div>
+
+    </main>
+</section>
+
+    <footer class="bg-white border-t py-10 text-center text-gray-500 mt-20">
+        <p>© 2025 SangoCode - L'excellence technologique en RCA.</p>
+    </footer>
+
+    <script>
+        // Initialisation des icônes
+        lucide.createIcons();
+
+        // Gestion de la navigation (Single Page Application logic)
+        function showSection(id) {
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        // Données fictives pour les articles
+        const articles = [
+            { cat: 'Web', title: 'Le futur de Next.js en 2025', author: 'Alain G.', desc: 'Pourquoi les entreprises à Bangui migrent vers le Web performant.' },
+            { cat: 'Mobile', title: 'Flutter et l\'inclusion numérique', author: 'Cynthia K.', desc: 'Créer des apps légères pour les zones à faible débit.' },
+            { cat: 'Data', title: 'Python pour l\'Agriculture en RCA', author: 'Marc P.', desc: 'Comment analyser les sols avec des scripts simples.' }
+        ];
+
+        // Remplissage automatique des grilles d'articles
+        function renderArticles() {
+            const grid = document.getElementById('articles-grid');
+            const fullGrid = document.getElementById('full-articles-grid');
+            
+            let html = '';
+            articles.forEach(art => {
+                html += `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-xl transition-all cursor-pointer">
+                    <div class="p-8">
+                        <span class="text-xs font-bold uppercase tracking-widest text-blue-700 bg-blue-50 px-3 py-1 rounded-full">${art.cat}</span>
+                        <h3 class="text-xl font-bold mt-4 mb-3">${art.title}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">${art.desc}</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-50">
+                            <div class="w-10 h-10 rounded-full bg-gray-200"></div>
+                            <span class="text-sm text-gray-700 font-medium">Par <b>${art.author}</b></span>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            grid.innerHTML = html;
+            fullGrid.innerHTML = html;
+        }
+
+        renderArticles();
+function switchTab(tabId) {
+    // 1. Masquer tous les contenus d'onglets
+    document.querySelectorAll('.dashboard-tab').forEach(tab => {
+        tab.classList.add('hidden');
+    });
+
+    // 2. Afficher l'onglet sélectionné
+    document.getElementById(tabId).classList.remove('hidden');
+
+    // 3. Réinitialiser le style de tous les boutons de la sidebar
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-700', 'text-white');
+        btn.classList.add('text-gray-400');
+    });
+
+    // 4. Mettre en surbrillance le bouton cliqué
+    // On trouve le bouton qui a appelé la fonction ou on le cible par ID
+    const activeBtnId = tabId.replace('tab-', 'btn-');
+    const activeBtn = document.getElementById(activeBtnId);
+    activeBtn.classList.add('bg-blue-700', 'text-white');
+    activeBtn.classList.remove('text-gray-400');
+}
+// Fonction pour ouvrir la modale
+function openArticleModal() {
+    const modal = document.getElementById('modal-article');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden'; // Empêche le scroll derrière
+}
+
+// Fonction pour fermer la modale
+function closeArticleModal() {
+    const modal = document.getElementById('modal-article');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto'; // Réactive le scroll
+}
+
+// Gestion de la soumission du formulaire
+document.getElementById('form-new-article').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Récupération des valeurs (pourrait être envoyé à Supabase ici)
+    const title = document.getElementById('art-title').value;
+    const category = document.getElementById('art-category').value;
+
+    // Simulation d'ajout dans le tableau (UI uniquement pour l'instant)
+    alert(`Félicitations ! Votre article "${title}" dans la catégorie ${category} a été publié.`);
+    
+    closeArticleModal();
+    this.reset(); // Vide le formulaire
+});
+        function toggleArticleEditor(showEditor) {
+    const listView = document.getElementById('articles-list-view');
+    const editorView = document.getElementById('articles-editor-view');
+
+    if (showEditor) {
+        listView.classList.add('hidden');
+        editorView.classList.remove('hidden');
+    } else {
+        listView.classList.remove('hidden');
+        editorView.classList.add('hidden');
+    }
+    
+    // On rafraîchit les icônes Lucide si nécessaire
+    lucide.createIcons();
+}
+    </script>
+ <footer class="bg-[#1e3a8a] text-white pt-16 pb-8">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            
+            <div class="space-y-4">
+                <div class="text-2xl font-bold flex items-center gap-2">
+                    <span class="bg-yellow-400 text-blue-900 px-2 rounded">Sango</span>Code
+                </div>
+                <p class="text-blue-100 text-sm leading-relaxed">
+                    La première plateforme dédiée aux talents technologiques de la République Centrafricaine. Apprendre, partager et bâtir ensemble.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:text-yellow-400"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="hover:text-yellow-400"><i data-lucide="twitter"></i></a>
+                    <a href="#" class="hover:text-yellow-400"><i data-lucide="github"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-6 border-b-2 border-yellow-400 w-fit">Derniers Articles</h4>
+                <ul class="space-y-4 text-sm text-blue-100">
+                    <li>
+                        <a href="#" class="hover:text-white transition">Optimiser sa connexion internet à Bangui</a>
+                        <p class="text-xs text-blue-300">Il y a 2 jours</p>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-white transition">Pourquoi apprendre Python en 2025 ?</a>
+                        <p class="text-xs text-blue-300">Il y a 5 jours</p>
+                    </li>
+                    <li>
+                        <a href="#" class="hover:text-white transition">Le guide du Freelance en RCA</a>
+                        <p class="text-xs text-blue-300">Il y a 1 semaine</p>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-6 border-b-2 border-yellow-400 w-fit">Nous trouver</h4>
+                <ul class="space-y-4 text-sm text-blue-100">
+                    <li class="flex items-start gap-3">
+                        <i data-lucide="map-pin" class="text-yellow-400 shrink-0"></i>
+                        <span>Bangui, Avenue de l'Indépendance,<br>Espace Coworking RCA</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="phone" class="text-yellow-400 shrink-0"></i>
+                        <span>+236 70 00 00 00</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i data-lucide="mail" class="text-yellow-400 shrink-0"></i>
+                        <span>contact@sangocode.cf</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-6 border-b-2 border-yellow-400 w-fit">Newsletter</h4>
+                <p class="text-sm text-blue-100 mb-4">Recevez les meilleures offres d'emploi tech.</p>
+                <form class="flex flex-col gap-2">
+                    <input type="email" placeholder="Votre email" class="p-2 rounded bg-blue-900 border border-blue-700 text-white outline-none focus:border-yellow-400">
+                    <button class="bg-yellow-400 text-blue-900 font-bold py-2 rounded hover:bg-white transition">S'abonner</button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="border-t border-blue-800 pt-8 text-center text-sm text-blue-300">
+            <p>© 2025 SangoCode. Tous droits réservés. Bâti avec fierté à Bangui.</p>
+        </div>
+    </div>
+</footer>
+<div id="modal-article" class="fixed inset-0 bg-black/60 z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-3xl rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+        <div class="bg-[#1e3a8a] p-6 text-white flex justify-between items-center">
+            <h3 class="text-xl font-bold flex items-center gap-2">
+                <i data-lucide="pen-tool"></i> Rédiger un nouvel article
+            </h3>
+  <button onclick="openArticleModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700 shadow-md">
+    <i data-lucide="plus"></i> Écrire un article
+            </button>
+        </div>
+
+        <form id="form-new-article" class="p-8 space-y-6">
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Titre de l'article</label>
+                <input type="text" id="art-title" placeholder="Ex: Comment optimiser son code React..." 
+                    class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition" required>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Catégorie</label>
+                    <select id="art-category" class="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="Web">Développement Web</option>
+                        <option value="Mobile">Développement Mobile</option>
+                        <option value="Data">Data Science / IA</option>
+                        <option value="Autre">Autre</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-2">Image de couverture (URL)</label>
+                    <input type="text" id="art-image" placeholder="https://..." 
+                        class="w-full p-4 border border-gray-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-sm font-bold text-gray-700 mb-2">Contenu de l'article</label>
+                <textarea id="art-content" rows="6" placeholder="Écrivez votre contenu ici (Markdown supporté)..." 
+                    class="w-full p-4 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition" required></textarea>
+            </div>
+
+            <div class="flex justify-end gap-4 pt-4">
+                <button type="button" onclick="closeArticleModal()" class="px-6 py-3 text-gray-500 font-bold hover:bg-gray-100 rounded-xl transition">
+                    Annuler
+                </button>
+                <button type="submit" class="bg-green-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-700 shadow-lg transition flex items-center gap-2">
+                    <i data-lucide="send"></i> Publier l'article
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="tab-articles" class="dashboard-tab hidden">
+    
+    <div id="articles-list-view">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-3xl font-bold">Mes Articles</h2>
+            <button onclick="toggleArticleEditor(true)" class="bg-blue-600 text-white px-4 py-2 rounded-lg font-bold flex items-center gap-2 hover:bg-blue-700 shadow-md">
+                <i data-lucide="plus"></i> Écrire un article
+            </button>
+        </div>
+        
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+            <table class="w-full text-left">
+                </table>
+        </div>
+    </div>
+
+    <div id="articles-editor-view" class="hidden">
+        <div class="flex items-center gap-4 mb-6">
+            <button onclick="toggleArticleEditor(false)" class="p-2 hover:bg-gray-200 rounded-full transition">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <h2 class="text-3xl font-bold">Rédiger un article</h2>
+        </div>
+
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-200">
+            <form class="space-y-6">
+                <input type="text" placeholder="Titre de l'article" class="w-full text-2xl font-bold border-b p-2 outline-none focus:border-blue-600" required>
+                
+                <div class="flex gap-4">
+                    <select class="p-2 border rounded-lg outline-none">
+                        <option>Catégorie : Web</option>
+                        <option>Catégorie : Mobile</option>
+                        <option>Catégorie : IA</option>
+                    </select>
+                </div>
+
+                <textarea placeholder="Commencez à écrire votre article ici..." class="w-full h-64 p-4 border rounded-xl outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+
+                <div class="flex justify-end gap-4">
+                    <button type="button" onclick="toggleArticleEditor(false)" class="px-6 py-2 text-gray-500 font-bold">Annuler</button>
+                    <button type="submit" class="bg-green-600 text-white px-8 py-2 rounded-lg font-bold hover:bg-green-700 shadow-lg">Publier l'article</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
